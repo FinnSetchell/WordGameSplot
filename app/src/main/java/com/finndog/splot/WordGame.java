@@ -1,7 +1,9 @@
 package com.finndog.splot;
 
+import android.content.Context;
 import android.graphics.Point;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +11,9 @@ import java.util.Random;
 
 public class WordGame {
 
-    //replaced with FoundWord class
-//    public struct FoundWord {
-//        String word;
-//        List<Point> indexes;
-//    };
-
-
     public WordGame()
     {
-       m_MaxSwaps = 0;
+        m_MaxSwaps = 0;
     }
 
     public int GetGridSize()
@@ -31,7 +26,7 @@ public class WordGame {
         return m_grid[i][j];
     }
 
-    public void Reset(int difficulty)
+    public void Reset(int difficulty, HashMap<String, String> lexicon)
     {
 //        m_state = GameCompleteState.NOT_COMPLETE;
         int MaxNumWords;
@@ -153,37 +148,28 @@ public class WordGame {
                     m_grid[i][j] = allLetters.get(random.nextInt(allLetters.size()));
                 }
             }
-            FindWords();
+            FindWords(lexicon);
         } while (m_foundWords.size() != MaxNumWords);
     }
 
-//    public String RenderToString()
-//    {
-//        String gridText = "";
-//        for (int j = 0; j < m_gridSize; j++)
-//        {
-//            for (int i = 0; i < m_gridSize; i++)
-//            {
-//                gridText += " | " + m_grid[i][j];
-//                if (i == m_gridSize - 1)
-//                {
-//                    gridText += '\n';
-//                }
-//            }
-//        }
-//        return gridText;
-//    }
-
-
-    //replaced with IndexContainsWords class
-//    public struct IndexContainsWords
-//    {
-//        public List<Point> Indexes;
-//        public List<FoundWord> Words;
-//    }
-
-    private void FindWords()
+    public String RenderToString()
     {
+        String gridText = "";
+        for (int j = 0; j < m_gridSize; j++)
+        {
+            for (int i = 0; i < m_gridSize; i++)
+            {
+                gridText += " | " + m_grid[i][j];
+                if (i == m_gridSize - 1)
+                {
+                    gridText += '\n';
+                }
+            }
+        }
+        return gridText;
+    }
+
+    private void FindWords(HashMap<String, String> lexicon) {
         ArrayList<FoundWord> words = new ArrayList<>();
         int[] dx = { 1, 1, 0, -1, -1, -1, 0, 1 };
         int[] dy = { 0, -1, -1, -1, 0, 1, 1, 1 };
@@ -204,12 +190,13 @@ public class WordGame {
                         word.append(m_grid[i1][j1]);
                         indexes.add(new Point(i1, j1));
 
-                        if (word.length() >= m_minWordLength & m_lexicon.IsWord(word.toString()))
+                        if (word.length() >= m_minWordLength & IsWord(lexicon, word.toString()))
                         {
-                            FoundWord foundWord;
-                            foundWord.word = word.toString();
-                            foundWord.indexes = new List<Point>(indexes);
+                            FoundWord foundWord = new FoundWord(word.toString(), indexes);
+//                            foundWord.word = word.toString();
+//                            foundWord.indexes = new ArrayList<Point>(indexes);
                             words.add(foundWord);
+
                         }
                         i1 += dx[dir];
                         j1 += dy[dir];
@@ -219,6 +206,10 @@ public class WordGame {
             }
         }
         m_foundWords = words;
+    }
+
+    public boolean IsWord(HashMap<String, String> lexicon, String word) {
+        return lexicon.containsKey(word.toLowerCase());
     }
 
 //    public void Swap(int i1, int j1, int i2, int j2)
@@ -276,54 +267,54 @@ public class WordGame {
         return m_foundWords.size();
     }
 
-//    public List<String> GetFoundWords()
-//    {
-//        var words = new List<String>();
-//
-//        foreach(FoundWord word in m_foundWords)
-//        {
-//            words.Add(word.word);
-//        }
-//        return words;
-//    }
+    /*public List<String> GetFoundWords()
+    {
+        var words = new List<String>();
 
-//    public boolean IsIndexInAFoundWord(int i, int j)
-//    {
-//        var p = new Point(i, j);
-//
-//        foreach(FoundWord word in m_foundWords)
-//        {
-//            foreach(Point index in word.indexes)
-//            {
-//                if (index == p) return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+        foreach(FoundWord word in m_foundWords)
+        {
+            words.Add(word.word);
+        }
+        return words;
+    }*/
 
-//    private void UpdateGameOverScores()
-//    {
-//        m_playedScore += 1;
-//
-//        if (m_state == GameCompleteState.COMPLETE_WIN)
-//        {
-//            m_WonOrLostDisplay = "You Won!";
-//            m_wonTotal += 1;
-//            m_currentStreakScore += 1;
-//            if (m_currentStreakScore > m_maxStreakScore)
-//            {
-//                m_maxStreakScore = m_currentStreakScore;
-//            }
-//
-//        } else if (m_state == GameCompleteState.COMPLETE_LOSE)
-//        {
-//            m_WonOrLostDisplay = "You Lost :(";
-//            m_lostTotal += 1;
-//            m_currentStreakScore = 0;
-//        }
-//        m_wonPercentageScore = m_wonTotal / m_playedScore * 100;
-//    }
+    /*public boolean IsIndexInAFoundWord(int i, int j)
+    {
+        var p = new Point(i, j);
+
+        foreach(FoundWord word in m_foundWords)
+        {
+            foreach(Point index in word.indexes)
+            {
+                if (index == p) return true;
+            }
+        }
+
+        return false;
+    }*/
+
+    /*private void UpdateGameOverScores()
+    {
+        m_playedScore += 1;
+
+        if (m_state == GameCompleteState.COMPLETE_WIN)
+        {
+            m_WonOrLostDisplay = "You Won!";
+            m_wonTotal += 1;
+            m_currentStreakScore += 1;
+            if (m_currentStreakScore > m_maxStreakScore)
+            {
+                m_maxStreakScore = m_currentStreakScore;
+            }
+
+        } else if (m_state == GameCompleteState.COMPLETE_LOSE)
+        {
+            m_WonOrLostDisplay = "You Lost :(";
+            m_lostTotal += 1;
+            m_currentStreakScore = 0;
+        }
+        m_wonPercentageScore = m_wonTotal / m_playedScore * 100;
+    }*/
 
 
 
@@ -337,8 +328,7 @@ public class WordGame {
     {
         return m_WonOrLostDisplay;
     }
-    public int GetPlayedScore() //ADD REST
-    {
+    public int GetPlayedScore() {
         return m_playedScore;
     }
     public int GetWonPercentageScore()
@@ -366,7 +356,6 @@ public class WordGame {
         m_MaxSwaps = maxSwaps;
     }
 
-    Lexicon m_lexicon = new Lexicon();
     private int m_MaxSwaps;
     private int m_gridSize;
     private char[][] m_grid;

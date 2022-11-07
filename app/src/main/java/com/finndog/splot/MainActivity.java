@@ -9,6 +9,12 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     DrawGrid drawGrid;
@@ -21,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         m_DragStartIndex = new Point(-1, -1);
         m_HoverIndex = new Point(-1, -1);
 
+
         m_game = new WordGame();
-        m_game.Reset(1);
+        m_game.Reset(1, m_lexicon);
 
 //        setContentView(R.layout.activity_main);
         drawGrid = new DrawGrid(this);
@@ -107,6 +114,38 @@ public class MainActivity extends AppCompatActivity {
 
         }*/
 
+    public HashMap<String, String> LexiconActivity() {
+        m_lexicon = new HashMap<>();
+
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open("data/dictionaries/ScrabbleEnglish.txt"), "UTF-8"));
+
+            // do reading, usually loop until end of file reading
+            String line;
+            while ((line = reader.readLine()) != null) {
+                //process line
+                m_lexicon.put(line.toLowerCase(), "");
+            }
+        } catch (IOException e) {
+            //log the exception
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    //log the exception
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return m_lexicon;
+    }
+
+    HashMap<String, String> m_lexicon;
     WordGame m_game;
     Point m_DragStartIndex;
     boolean m_IsDragging;
