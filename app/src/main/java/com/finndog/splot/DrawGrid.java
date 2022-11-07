@@ -66,20 +66,20 @@ public class DrawGrid extends View {
 
 //                LetterGrid.Children.Add(rectangle);
 
-
+                // letters
                 textPaint.setTextSize((int)size-space);
                 textPaint.setTextAlign(Paint.Align.CENTER);
                 textPaint.setColor(Color.BLACK);
+
                 LetterGrid.drawText(Character.toString(Character.toUpperCase(game.GetGridChar(i, j))), 80, 120, textPaint);
-//                Canvas.SetLeft(textBlock, i * (size + space) + space / 2);
-//                Canvas.SetTop(textBlock, j * (size + space) + space / 2);
+
 //                LetterGrid.Children.Add(textBlock);
+
                 LetterGrid.translate(size + space / 2, 0);
             }
             LetterGrid.translate(-(i*(size + space / 2)), size + space / 2);
         }
     }
-
 
     public void DrawRectangles(Canvas LetterGrid) {
                 //need to clear grid before generating new one

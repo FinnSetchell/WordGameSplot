@@ -1,5 +1,7 @@
 package com.finndog.splot;
 
+import android.graphics.Point;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +18,7 @@ public class WordGame {
 
     public WordGame()
     {
-        m_allowDiagonals = true;
-        m_gridSize = 7;
-        m_minWordLength = 3;
-        m_MaxSwaps = 0;
+       m_MaxSwaps = 0;
     }
 
     public int GetGridSize()
@@ -140,9 +139,8 @@ public class WordGame {
                 break;
         }
 
-        m_grid = new char[m_gridSize][m_gridSize];
         m_swapCounter = 0;
-
+        m_grid = new char[m_gridSize][m_gridSize];
         Random random = new Random();
 
         ArrayList<Character> allLetters = new ArrayList<>();
@@ -155,7 +153,7 @@ public class WordGame {
                     m_grid[i][j] = allLetters.get(random.nextInt(allLetters.size()));
                 }
             }
-//            FindWords();
+            FindWords();
         } while (m_foundWords.size() != MaxNumWords);
     }
 
@@ -184,44 +182,44 @@ public class WordGame {
 //        public List<FoundWord> Words;
 //    }
 
-//    private void FindWords()
-//    {
-//        List<FoundWord> words = new List<FoundWord>();
-//        int[] dx = { 1, 1, 0, -1, -1, -1, 0, 1 };
-//        int[] dy = { 0, -1, -1, -1, 0, 1, 1, 1 };
-//
-//        //create structure holding all of the indexes. For each index, store all of the words that contain it
-//
-//        for (int j = 0; j < m_gridSize; j++)
-//        {
-//            for (int i = 0; i < m_gridSize; i++)
-//            {
-//                for (int dir = 0; dir < 8; dir += (m_allowDiagonals ? 1 : 2))
-//                {
-//                    var word = new StringBuilder("");
-//                    var indexes = new List<Point>();
-//                    int i1 = i, j1 = j;
-//                    while (i1 >= 0 & j1 >= 0 & i1 < m_gridSize & j1 < m_gridSize)
-//                    {
-//                        word.Append(m_grid[i1][j1]);
-//                        indexes.Add(new Point(i1, j1));
-//
-//                        if (word.Length >= m_minWordLength & m_lexicon.IsWord(word.ToString()))
-//                        {
-//                            FoundWord foundWord;
-//                            foundWord.word = word.ToString();
-//                            foundWord.indexes = new List<Point>(indexes);
-//                            words.Add(foundWord);
-//                        }
-//                        i1 += dx[dir];
-//                        j1 += dy[dir];
-//                    }
-//
-//                }
-//            }
-//        }
-//        m_foundWords = words;
-//    }
+    private void FindWords()
+    {
+        ArrayList<FoundWord> words = new ArrayList<>();
+        int[] dx = { 1, 1, 0, -1, -1, -1, 0, 1 };
+        int[] dy = { 0, -1, -1, -1, 0, 1, 1, 1 };
+
+        //create structure holding all of the indexes. For each index, store all of the words that contain it
+
+        for (int j = 0; j < m_gridSize; j++)
+        {
+            for (int i = 0; i < m_gridSize; i++)
+            {
+                for (int dir = 0; dir < 8; dir += (m_allowDiagonals ? 1 : 2))
+                {
+                    StringBuilder word = new StringBuilder();
+                    ArrayList<Point> indexes = new ArrayList<>();
+                    int i1 = i, j1 = j;
+                    while (i1 >= 0 & j1 >= 0 & i1 < m_gridSize & j1 < m_gridSize)
+                    {
+                        word.append(m_grid[i1][j1]);
+                        indexes.add(new Point(i1, j1));
+
+                        if (word.length() >= m_minWordLength & m_lexicon.IsWord(word.toString()))
+                        {
+                            FoundWord foundWord;
+                            foundWord.word = word.toString();
+                            foundWord.indexes = new List<Point>(indexes);
+                            words.add(foundWord);
+                        }
+                        i1 += dx[dir];
+                        j1 += dy[dir];
+                    }
+
+                }
+            }
+        }
+        m_foundWords = words;
+    }
 
 //    public void Swap(int i1, int j1, int i2, int j2)
 //    {
@@ -269,14 +267,14 @@ public class WordGame {
 //        else m_state = GameCompleteState.NOT_COMPLETE;
 //    }
 
-//    public int GetSwapCounter()
-//    {
-//        return m_swapCounter;
-//    }
-//    public int GetFoundWordCount()
-//    {
-//        return m_foundWords.Count();
-//    }
+    public int GetSwapCounter()
+    {
+        return m_swapCounter;
+    }
+    public int GetFoundWordCount()
+    {
+        return m_foundWords.size();
+    }
 
 //    public List<String> GetFoundWords()
 //    {
@@ -329,16 +327,16 @@ public class WordGame {
 
 
 
-//    public enum GameCompleteState { NOT_COMPLETE, COMPLETE_WIN, COMPLETE_LOSE };
+    public enum GameCompleteState { NOT_COMPLETE, COMPLETE_WIN, COMPLETE_LOSE };
 //    public GameCompleteState IsGameComplete()
 //    {
 //        return m_state;
 //    }
 
-//    public string GetWonOrLostDisplay()
-//    {
-//        return m_WonOrLostDisplay;
-//    }
+    public String GetWonOrLostDisplay()
+    {
+        return m_WonOrLostDisplay;
+    }
     public int GetPlayedScore() //ADD REST
     {
         return m_playedScore;
@@ -363,10 +361,10 @@ public class WordGame {
     {
         return m_MaxSwaps;
     }
-//    public void SetMaxSwaps(int maxSwaps)
-//    {
-//        m_MaxSwaps = maxSwaps;
-//    }
+    public void SetMaxSwaps(int maxSwaps)
+    {
+        m_MaxSwaps = maxSwaps;
+    }
 
     Lexicon m_lexicon = new Lexicon();
     private int m_MaxSwaps;

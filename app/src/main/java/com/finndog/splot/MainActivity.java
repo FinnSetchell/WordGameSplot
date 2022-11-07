@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         m_HoverIndex = new Point(-1, -1);
 
         m_game = new WordGame();
-//        m_game.Reset(GridSize.SelectedIndex);
+        m_game.Reset(1);
 
 //        setContentView(R.layout.activity_main);
         drawGrid = new DrawGrid(this);
