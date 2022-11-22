@@ -13,3 +13,4 @@ public class FoundWord {
         indexes = a_indexes;
     }
 }
+

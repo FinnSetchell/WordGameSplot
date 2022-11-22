@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         m_IsDragging = false;
         m_DragStartIndex = new Point(-1, -1);
         m_HoverIndex = new Point(-1, -1);
-
+        m_lexicon = LexiconActivity();
 
         m_game = new WordGame();
         m_game.Reset(1, m_lexicon);

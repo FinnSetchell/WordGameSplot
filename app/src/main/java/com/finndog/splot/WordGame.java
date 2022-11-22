@@ -31,7 +31,7 @@ public class WordGame {
 //        m_state = GameCompleteState.NOT_COMPLETE;
         int MaxNumWords;
 
-        HashMap<Character, Integer> letters = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> letters = new HashMap<>();
         letters.clear();
         switch (difficulty)
         {
@@ -319,6 +319,7 @@ public class WordGame {
 
 
     public enum GameCompleteState { NOT_COMPLETE, COMPLETE_WIN, COMPLETE_LOSE };
+
 //    public GameCompleteState IsGameComplete()
 //    {
 //        return m_state;

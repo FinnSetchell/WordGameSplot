@@ -79,59 +79,8 @@ public class DrawGrid extends View {
             }
             LetterGrid.translate(-(i*(size + space / 2)), size + space / 2);
         }
-    }
 
-    public void DrawRectangles(Canvas LetterGrid) {
-                //need to clear grid before generating new one
-        //LetterGrid.Children.Clear();
-
-        for (int j = 0; j < game.GetGridSize(); j++)
-        {
-            for (int i = 0; i < game.GetGridSize(); i++)
-            {
-                boolean IsHover = (hoverIndex.x == i && hoverIndex.y == j);
-                boolean IsDragStart = (dragStartIndex.x == i && dragStartIndex.y == j);
-//                boolean IsInWord = game.IsIndexInAFoundWord(i, j);
-                boolean IsInWord = i % 2 == 0; //just makes it display true and false while IsIndexInFoundWord not implemented
-
-                Paint fillPaint = new Paint();
-                Paint strokePaint = new Paint();
-                RectF r = new RectF(size, size, size, size);
-
-                // fill
-                fillPaint.setStyle(Paint.Style.FILL);
-                fillPaint.setColor(IsInWord ? Color.GREEN : Color.GRAY);
-                // stroke
-                strokePaint.setStyle(Paint.Style.STROKE);
-                strokePaint.setColor(Color.BLACK);
-                strokePaint.setStrokeWidth((IsHover || IsDragStart) ? 4 : 0);
-
-                int cornerRadius = (int) size / 5;
-                LetterGrid.drawRoundRect(r, cornerRadius, cornerRadius, fillPaint);    // fill
-                LetterGrid.drawRoundRect(r, cornerRadius, cornerRadius, strokePaint);  // stroke
-
-
-//                LetterGrid.Children.Add(rectangle);
-
-
-                LetterGrid.translate(i * (size + space) + space / 2, j * (size + space) + space / 2);
-//                Canvas.SetLeft(rectangle, i * (size + space) + space / 2);
-//                Canvas.SetTop(rectangle, j * (size + space) + space / 2);
-
-
-//                TextBlock textBlock = new TextBlock();
-//                textBlock.Height = size;
-//                textBlock.Width = size;
-//                textBlock.TextAlignment = TextAlignment.Center;
-//                textBlock.FontSize = 30;
-//                textBlock.Text = game.GetGridChar(i, j).ToString().ToUpper();
-//                textBlock.Foreground = new SolidColorBrush(Color.rgb(0, 0, 0));
-//                Canvas.SetLeft(textBlock, i * (size + space) + space / 2);
-//                Canvas.SetTop(textBlock, j * (size + space) + space / 2);
-//                LetterGrid.Children.Add(textBlock);
-            }
-        }
-
+    // CHECK GAME STATE
 //        if (game.IsGameComplete() != WordGame.GameCompleteState.NOT_COMPLETE)
 //        {
 //            string msg = "";
@@ -155,6 +104,7 @@ public class DrawGrid extends View {
 //            GameCompleteOverlay.Visibility = Visibility.Hidden;
     }
 
+// GAME OVER OVERLAY
 //    public void DisplayGameOver(Grid GameCompleteOverlay, WordGame game, TextBox PlayedScore, TextBox WonPercentageScore, TextBox CurrentStreakScore, TextBox MaxStreakScore, TextBox SwapCountScore, TextBox WordCountScore, TextBox WonOrLostDisplay)
 //    {
 //        WonOrLostDisplay.Text = game.GetWonOrLostDisplay();
