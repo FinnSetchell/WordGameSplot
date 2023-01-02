@@ -16,15 +16,9 @@ public class WordGame {
         m_MaxSwaps = 0;
     }
 
-    public int GetGridSize()
-    {
-        return m_gridSize;
-    }
 
-    public char GetGridChar(int i, int j)
-    {
-        return m_grid[i][j];
-    }
+
+
 
     public void Reset(int difficulty, HashMap<String, String> lexicon)
     {
@@ -325,6 +319,33 @@ public class WordGame {
 //        return m_state;
 //    }
 
+
+    private int m_MaxSwaps;
+    public int GetMaxSwaps()
+    {
+        return m_MaxSwaps;
+    }
+    public void SetMaxSwaps(int maxSwaps)
+    {
+        m_MaxSwaps = maxSwaps;
+    }
+    private static int m_gridSize;
+    public static int GetGridSize() {return m_gridSize;}
+    public static char GetGridChar(int i, int j) {return m_grid[i][j];}
+    private static char[][] m_grid;
+    private boolean m_allowDiagonals;
+    private int m_minWordLength;
+    private List<FoundWord> m_foundWords;
+    private int m_swapCounter;
+    private GameCompleteState m_state;
+
+    private String m_WonOrLostDisplay;
+    private int m_playedScore;
+    private int m_wonPercentageScore;
+    private int m_wonTotal;
+    private int m_lostTotal;
+    private int m_currentStreakScore;
+    private int m_maxStreakScore;
     public String GetWonOrLostDisplay()
     {
         return m_WonOrLostDisplay;
@@ -348,29 +369,4 @@ public class WordGame {
     {
         return m_swapCounter;
     }
-    public int GetMaxSwaps()
-    {
-        return m_MaxSwaps;
-    }
-    public void SetMaxSwaps(int maxSwaps)
-    {
-        m_MaxSwaps = maxSwaps;
-    }
-
-    private int m_MaxSwaps;
-    private int m_gridSize;
-    private char[][] m_grid;
-    private boolean m_allowDiagonals;
-    private int m_minWordLength;
-    private List<FoundWord> m_foundWords;
-    private int m_swapCounter;
-//    private GameCompleteState m_state;
-
-    private String m_WonOrLostDisplay;
-    private int m_playedScore;
-    private int m_wonPercentageScore;
-    private int m_wonTotal;
-    private int m_lostTotal;
-    private int m_currentStreakScore;
-    private int m_maxStreakScore;
 }

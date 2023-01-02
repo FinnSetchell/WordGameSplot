@@ -1,16 +1,13 @@
 package com.finndog.splot;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -29,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         m_lexicon = LexiconActivity();
 
         m_game = new WordGame();
-        m_game.Reset(1, m_lexicon);
+        m_game.Reset(2, m_lexicon);
 
 //        setContentView(R.layout.activity_main);
         drawGrid = new DrawGrid(this);
-        drawGrid.setBackgroundColor(Color.argb(1, 236, 243, 246));
+        drawGrid.setBackgroundColor(Color.argb(1, 246, 243, 246));
         setContentView(drawGrid);
 
 //        drawGrid.DisplayGameOver(GameCompleteOverlay, m_game, PlayedScore, WonPercentageScore, CurrentStreakScore, MaxStreakScore, SwapCountScore, WordCountScore, WonOrLostDisplay);
@@ -43,45 +40,47 @@ public class MainActivity extends AppCompatActivity {
 //        SwapCounter.Text = m_game.GetSwapCounter().ToString();
     }
 
-//    private void LetterGrid_MouseDown(object sender, MouseButtonEventArgs e)
-//    {
-//        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
-//
-//        m_IsDragging = true;
-//        m_DragStartIndex = index;
-//    }
 
-//    private void LetterGrid_MouseUp(object sender, MouseButtonEventArgs e)
-//    {
-//        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
-//
-//        if (m_IsDragging)
-//        {
-//            m_game.Swap((int)m_DragStartIndex.X, (int)m_DragStartIndex.Y, (int)index.X, (int)index.Y);
-//            m_IsDragging = false;
-//            m_DragStartIndex = new Point(-1, -1);
-//
-//            Words.Text = string.Join("\n", m_game.GetFoundWords());
-//            drawGrid.DrawRectangles(LetterGrid, GameCompleteOverlay, m_game, m_HoverIndex, m_DragStartIndex);
-//            drawGrid.DisplayGameOver(GameCompleteOverlay, m_game, PlayedScore, WonPercentageScore, CurrentStreakScore, MaxStreakScore, SwapCountScore, WordCountScore, WonOrLostDisplay);
-//            WordCount.Text = m_game.GetFoundWordCount().ToString();
-//            SwapCounter.Text = (m_game.GetSwapCounter().ToString() + "/∞");
-//            //m_game.IsIndexInAFoundWord(m_HoverIndex);
-//        }
-//    }
+/**Mouse events
+    private void LetterGrid_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
+
+        m_IsDragging = true;
+        m_DragStartIndex = index;
+    }
+
+    private void LetterGrid_MouseUp(object sender, MouseButtonEventArgs e)
+    {
+        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
+
+        if (m_IsDragging)
+        {
+            m_game.Swap((int)m_DragStartIndex.X, (int)m_DragStartIndex.Y, (int)index.X, (int)index.Y);
+            m_IsDragging = false;
+            m_DragStartIndex = new Point(-1, -1);
+
+            Words.Text = string.Join("\n", m_game.GetFoundWords());
+            drawGrid.DrawRectangles(LetterGrid, GameCompleteOverlay, m_game, m_HoverIndex, m_DragStartIndex);
+            drawGrid.DisplayGameOver(GameCompleteOverlay, m_game, PlayedScore, WonPercentageScore, CurrentStreakScore, MaxStreakScore, SwapCountScore, WordCountScore, WonOrLostDisplay);
+            WordCount.Text = m_game.GetFoundWordCount().ToString();
+            SwapCounter.Text = (m_game.GetSwapCounter().ToString() + "/∞");
+            //m_game.IsIndexInAFoundWord(m_HoverIndex);
+        }
+    }
 
 
-//    private void LetterGrid_MouseMove(object sender, MouseEventArgs e)
-//    {
-//        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
-//
-//        if (m_HoverIndex != index && m_game.IsGameComplete() == WordGame.GameCompleteState.NOT_COMPLETE)
-//        {
-//            m_HoverIndex = index;
-//
-//            drawGrid.DrawRectangles(LetterGrid, GameCompleteOverlay, m_game, m_HoverIndex, m_DragStartIndex);
-//        }
-//    }
+    private void LetterGrid_MouseMove(object sender, MouseEventArgs e)
+    {
+        Point index = drawGrid.ConvertPosToGridIndex(e.GetPosition(LetterGrid));
+
+        if (m_HoverIndex != index && m_game.IsGameComplete() == WordGame.GameCompleteState.NOT_COMPLETE)
+        {
+            m_HoverIndex = index;
+
+            drawGrid.DrawRectangles(LetterGrid, GameCompleteOverlay, m_game, m_HoverIndex, m_DragStartIndex);
+        }
+    }**/
 
 //    private void Reset_Button(object sender, RoutedEventArgs e)
 //    {

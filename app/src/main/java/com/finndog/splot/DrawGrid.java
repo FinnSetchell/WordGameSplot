@@ -1,16 +1,14 @@
 package com.finndog.splot;
 
+import static com.finndog.splot.WordGame.GetGridChar;
+import static com.finndog.splot.WordGame.GetGridSize;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.text.Layout;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.Random;
 
@@ -22,8 +20,7 @@ public class DrawGrid extends View {
     Paint fillPaint;
     Paint strokePaint;
     Random rand;
-    WordGame game = new WordGame();
-    int gridSize = game.GetGridSize();
+    int gridSize = GetGridSize();
     Point dragStartIndex = new Point(-1, -1);
     Point hoverIndex = new Point(-1, -1);
 
@@ -71,7 +68,7 @@ public class DrawGrid extends View {
                 textPaint.setTextAlign(Paint.Align.CENTER);
                 textPaint.setColor(Color.BLACK);
 
-                LetterGrid.drawText(Character.toString(Character.toUpperCase(game.GetGridChar(i, j))), 80, 120, textPaint);
+                LetterGrid.drawText(Character.toString(Character.toUpperCase(GetGridChar(i, j))), 80, 120, textPaint);
 
 //                LetterGrid.Children.Add(textBlock);
 
@@ -132,4 +129,6 @@ public class DrawGrid extends View {
 //
 //        return index;
 //    }
+
+    public void setGridSize(int p_gridSize) {gridSize = p_gridSize;}
 }
